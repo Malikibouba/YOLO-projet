@@ -22,6 +22,10 @@ except Exception:  # pragma: no cover - runtime environment dependent
 import streamlit_webrtc as webrtc
 import av
 
+if st.experimental_get_query_params().get("mobile", [""])[0] == "":
+    st.markdown('<meta name="viewport" content="width=device-width, initial-scale=1">', unsafe_allow_html=True)
+
+
 # ---------------------------
 # Configuration globale
 # ---------------------------
