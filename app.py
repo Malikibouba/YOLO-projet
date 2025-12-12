@@ -458,13 +458,13 @@ def tab_webcam(model, conf: float, max_det: int) -> None:
     We prefer st.camera_input() because it's browser friendly.
     """
     st.markdown(
-        '<div class="card"><h3>🎥 Détection Live (Caméra)</h3></div>', 
+        '<div class="card"><h3>🎥 Image par Caméra</h3></div>', 
         unsafe_allow_html=True
     )
     
     # SIMPLE : Juste st.camera_input() avec VOTRE texte
     cam_file = st.camera_input(
-        "Prends une photo et autorise la camera"
+        "Autorise l'accès à la camera et prends une photo"
     )
     
     if cam_file is not None:
@@ -524,7 +524,7 @@ def tab_images(model, conf: float, max_det: int) -> None:
 
 def tab_videos(model, conf: float, max_det: int) -> None:
     st.markdown(
-        '<div class="card"><h3>🎥 Traitement Vidéo Pro</h3></div>', 
+        '<div class="card"><h3>🎥 Traitement Vidéo</h3></div>', 
         unsafe_allow_html=True
     )
     video_file = st.file_uploader("📹 Vidéo MP4 (max ~100MB recommandé,)", type=["mp4"])
