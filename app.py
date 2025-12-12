@@ -404,6 +404,18 @@ def show_header() -> None:
             font-size: 16px !important;
         }
 
+        div.stTabs [data-baseweb="tab"] {
+            flex: 1 1 auto;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @media (max-width: 768px) {
+            div.stTabs [data-baseweb="tab"] {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.3rem;
+            }
 
     </style>
     """,
