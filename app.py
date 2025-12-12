@@ -416,7 +416,7 @@ def show_header() -> None:
                 font-size: 0.8rem;
                 padding: 0.5rem 0.3rem;
             }
-
+ 
     </style>
     """,
         unsafe_allow_html=True,
