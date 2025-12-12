@@ -413,7 +413,7 @@ def show_header() -> None:
         }
         @media (max-width: 768px) {
             div.stTabs [data-baseweb="tab"] {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
                 padding: 0.5rem 0.3rem;
             }
  
