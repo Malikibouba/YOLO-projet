@@ -617,7 +617,20 @@ def tab_realtime(model, conf: float, max_det: int) -> None:
         '<div class="card"><h3>🔴 Détection Temps Réel</h3><p>Webcam live automatique</p></div>', 
         unsafe_allow_html=True    
     )
-    
+
+    # 📱 MOBILE
+    if st.experimental_get_query_params().get("mobile"):
+        st.warning("📱 **Mobile détecté** : Webcam indisponible")
+        uploaded_file = st.file_uploader("📁 Upload photo", type=['jpg','png','jpeg'])
+        if uploaded_file:
+            img = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), cv2.IMREAD_COLOR)
+            frame_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            results = model_predict(model, frame_rgb, conf, max_det)
+            annotated = annotate_results_to_bgr(results) if results else img
+            st.image(annotated, caption="Détection", use_column_width=True)
+        return
+
+    # 💻 DESKTOP
     class VideoProcessor:
         def __init__(self): 
             self.conf = conf
