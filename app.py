@@ -617,7 +617,7 @@ def tab_realtime(model, conf: float, max_det: int) -> None:
         '<div class="card"><h3>🔴 Détection Temps Réel</h3><p>Webcam live automatique</p></div>', 
         unsafe_allow_html=True    
     )
-    
+
     class VideoProcessor:
         def __init__(self): 
             self.conf = conf
