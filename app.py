@@ -627,7 +627,7 @@ def tab_realtime(model, conf: float, max_det: int) -> None:
             self.conf = conf
             self.max_det = max_det
         
-        def recv(self, frame):
+        def recv_queued(self, frame):
             img = frame.to_ndarray(format="bgr24")
             
             # Conversion + YOLO AVEC LES PARAMS
