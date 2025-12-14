@@ -22,7 +22,7 @@ except Exception:  # pragma: no cover - runtime environment dependent
 import streamlit_webrtc as webrtc
 import av
 
-if st.experimental_get_query_params().get("mobile", [""])[0] == "":
+if st.query_params.get("mobile", [""])[0] == "":
     st.markdown('<meta name="viewport" content="width=device-width, initial-scale=1">', unsafe_allow_html=True)
 
 
@@ -482,11 +482,11 @@ def tab_webcam(model, conf: float, max_det: int) -> None:
                 
                 # VOTRE VISUALISATION EXACTE
                 if annotated_bgr is None:
-                    st.image(rgb, caption="Image (originale)", use_container_width=True)
+                    st.image(rgb, caption="Image (originale)", width="stretch")
                 else:
                     # annotated_bgr -> convert back to RGB for st.image
                     annotated_rgb = cv2.cvtColor(annotated_bgr, cv2.COLOR_BGR2RGB)
-                    st.image(annotated_rgb, caption="Analyse IA", use_container_width=True)
+                    st.image(annotated_rgb, caption="Analyse IA", width="stretch")
                     
         except Exception:
             LOG.exception("Failed to process camera_input image.")
@@ -517,10 +517,10 @@ def tab_images(model, conf: float, max_det: int) -> None:
             annotated_bgr = annotate_results_to_bgr(results)
             col1, col2 = st.columns(2)
             with col1:
-                st.image(rgb, caption="Source", use_container_width=True)
+                st.image(rgb, caption="Source", width="stretch")
             with col2:
                 annotated_rgb = cv2.cvtColor(annotated_bgr, cv2.COLOR_BGR2RGB) if annotated_bgr is not None else rgb
-                st.image(annotated_rgb, caption="Analyse IA",use_container_width=True)
+                st.image(annotated_rgb, caption="Analyse IA", width="stretch")
     except Exception:
         LOG.exception("Erreur lors du traitement de l'image uploadée.")
         st.error("Impossible de traiter l'image uploadée. Assurez-vous que le fichier est une image valide.")
@@ -613,7 +613,7 @@ def tab_analytics() -> None:
     )
 
     st.subheader("🏆 Toutes Classes")
-    st.dataframe(df_top, use_container_width=True)
+    st.dataframe(df_top, width="stretch")
 
 
 def tab_realtime(model, conf: float, max_det: int) -> None:
@@ -647,7 +647,7 @@ def tab_realtime(model, conf: float, max_det: int) -> None:
     )
 
     # MISE À JOUR PARAMS EN TEMPS RÉEL
-    if ctx.state.playing and ctx.video_processor:
+    if ctx and ctx.state.playing and ctx.video_processor:
         ctx.video_processor.conf = conf
         ctx.video_processor.max_det = max_det
     
