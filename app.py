@@ -11,6 +11,7 @@ import numpy as np
 from pyarrow import null
 import streamlit as st
 from PIL import Image
+import asyncio 
 
 # NOTE: ultralytics may expose YOLO differently selon la version.
 # This code expects `from ultralytics import YOLO` available.
@@ -627,8 +628,7 @@ def tab_realtime(model, conf: float, max_det: int) -> None:
             self.conf = conf
             self.max_det = max_det
         
-        def recv_queued(self, frames):
-            
+        async def recv_queued(self, frames): 
             if not frames:
                 return None
             
@@ -641,7 +641,8 @@ def tab_realtime(model, conf: float, max_det: int) -> None:
             results = model_predict(model, frame_rgb, self.conf, self.max_det) 
             annotated = annotate_results_to_bgr(results) if results else img
             
-            return av.VideoFrame.from_ndarray(annotated, format="bgr24")
+            new_frame = av.VideoFrame.from_ndarray(annotated, format="bgr24")
+            return [new_frame]
     
     # WEBCAM LIVE avec PARAMS transmis
     ctx = webrtc.webrtc_streamer(
